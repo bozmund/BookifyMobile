@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         Button btnDodaj = findViewById(R.id.btnDodaj1);
         Button btnUkloni = findViewById(R.id.btnUkloni);
         Button btnDetalji = findViewById(R.id.btnDetalji);
+        Button btnPretragaApi = findViewById(R.id.btnPretragaApi);
 
         btnDodaj.setOnClickListener(view -> {
             Intent intent = new Intent(this, DodajKnjiguActivity.class);
@@ -116,6 +117,26 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("autor", knjiga.getAutor());
             intent.putExtra("godinaIzdavanja", knjiga.getGodinaIzdavanja());
             intent.putExtra("opis", knjiga.getOpis());
+            startActivity(intent);
+        });
+
+        btnDetalji.setOnClickListener(view ->{
+            String naslov = unesiNaslov.getText().toString();
+            Knjiga knjiga = knjiznica.nadiKnjigu(naslov);
+            if(knjiga == null) {
+                Toast.makeText(this, "Knjiga nije pronađena", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            Intent intent = new Intent(this, DetaljiKnjigeActivity.class);
+            intent.putExtra("naslov", knjiga.getNaslov());
+            intent.putExtra("autor", knjiga.getAutor());
+            intent.putExtra("godinaIzdavanja", knjiga.getGodinaIzdavanja());
+            intent.putExtra("opis", knjiga.getOpis());
+            startActivity(intent);
+        });
+
+        btnPretragaApi.setOnClickListener(view -> {
+            Intent intent = new Intent(this, PretragaActivity.class);
             startActivity(intent);
         });
     }
