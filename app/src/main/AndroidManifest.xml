@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
@@ -10,18 +9,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.K1_z2">
+        android:theme="@style/Theme.BookifyMobile">
         <activity
-            android:name=".PretragaActivity"
-            android:exported="false" />
-        <activity
-            android:name=".DetaljiKnjigeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".DodajKnjiguActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
+            android:name="hr.fipu.bookifymobile.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
