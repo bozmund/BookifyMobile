@@ -47,11 +47,24 @@ public class SearchFragment extends Fragment {
 
         btnSearch.setOnClickListener(v -> {
             String query = etSearchQuery.getText().toString().trim();
+            //Dodao sam knjigu za testiranje
+            BookDto testBook = new BookDto();
+            testBook.id = 1;
+            testBook.title = "Clean Code";
+            testBook.authors = "Robert C. Martin";
+            testBook.originalTitle = "Clean Code description";
+            testBook.imageUrl = "";
             if (query.isEmpty()) {
                 Toast.makeText(getContext(), "Please enter a search term.", Toast.LENGTH_SHORT).show();
                 return;
             }
-            executeApiCall(query);
+            //executeApiCall(query);
+            //Ovdje testiram kako se prikazuje knjiga
+            List<BookDto> testBooks = new ArrayList<>();
+            testBooks.add(testBook);
+            tvApiResult.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+            adapter.setBooks(testBooks);
         });
 
         return view;

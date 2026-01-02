@@ -1,5 +1,6 @@
 package hr.fipu.bookifymobile;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,14 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         } else {
             holder.tvYear.setText("Unknown Year");
         }
+
+        holder.itemView.setOnClickListener(view ->{
+            Intent intent = new Intent(view.getContext(), BookDetailActivity.class);
+            intent.putExtra("title", book.title);
+            intent.putExtra("author", book.authors);
+            intent.putExtra("description", book.originalTitle);
+            view.getContext().startActivity(intent);
+        });
     }
 
     @Override
