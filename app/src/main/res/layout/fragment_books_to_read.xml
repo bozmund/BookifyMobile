@@ -3,13 +3,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center">
+    android:padding="16dp">
 
     <TextView
+        android:id="@+id/tvToReadHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Books To Read Page"
+        android:text="Books To Read"
         android:textSize="24sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:id="@+id/tvToReadEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No books yet. Long-press a book in Search to add it here."
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_marginTop="16dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerToRead"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
 </LinearLayout>

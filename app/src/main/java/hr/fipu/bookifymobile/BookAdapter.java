@@ -49,6 +49,14 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
             intent.putExtra("description", book.originalTitle);
             view.getContext().startActivity(intent);
         });
+
+        holder.itemView.setOnLongClickListener(view -> {
+            if (onBookLongClickListener != null) {
+                onBookLongClickListener.onBookLongClick(book);
+                return true;
+            }
+            return false;
+        });
     }
 
     @Override
@@ -65,5 +73,15 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
             tvAuthor = itemView.findViewById(R.id.tvAuthor);
             tvYear = itemView.findViewById(R.id.tvYear);
         }
+    }
+
+    private OnBookLongClickListener onBookLongClickListener;
+
+    public interface OnBookLongClickListener {
+        void onBookLongClick(BookDto book);
+    }
+
+    public void setOnBookLongClickListener(OnBookLongClickListener listener) {
+        this.onBookLongClickListener = listener;
     }
 }

@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.app.AlertDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +46,8 @@ public class SearchFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new BookAdapter(new ArrayList<>());
         recyclerView.setAdapter(adapter);
+
+        adapter.setOnBookLongClickListener(this::showAddToShelfDialog);
 
         btnSearch.setOnClickListener(v -> {
             String query = etSearchQuery.getText().toString().trim();
@@ -96,5 +99,31 @@ public class SearchFragment extends Fragment {
                 tvApiResult.setVisibility(View.VISIBLE);
             }
         });
+    }
+
+    private void showAddToShelfDialog(BookDto book) {
+        if (getContext() == null) return;
+
+        String title = book.title != null ? book.title : "Selected book";
+        String[] options = new String[]{
+                "Add to Read Books",
+                "Add to To Read"
+        };
+
+        new AlertDialog.Builder(getContext())
+                .setTitle(title)
+                .setItems(options, (dialog, which) -> {
+                    if (getContext() == null) return;
+
+                    if (which == 0) {
+                        BookShelfStore.addToRead(getContext(), book);
+                        Toast.makeText(getContext(), "Added to Read Books", Toast.LENGTH_SHORT).show();
+                    } else if (which == 1) {
+                        BookShelfStore.addToToRead(getContext(), book);
+                        Toast.makeText(getContext(), "Added to To Read", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
     }
 }

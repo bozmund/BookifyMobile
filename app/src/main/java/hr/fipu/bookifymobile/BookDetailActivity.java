@@ -1,6 +1,7 @@
 package hr.fipu.bookifymobile;
 
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -19,6 +20,7 @@ public class BookDetailActivity extends AppCompatActivity {
         TextView title = findViewById(R.id.tvTitle);
         TextView author = findViewById(R.id.tvAuthor);
         TextView description = findViewById(R.id.tvDescription);
+        Button back = findViewById(R.id.btnBack);
 
         String bookTitle = getIntent().getStringExtra("title");
         String bookAuthor = getIntent().getStringExtra("author");
@@ -27,5 +29,9 @@ public class BookDetailActivity extends AppCompatActivity {
         title.setText(bookTitle);
         author.setText(bookAuthor);
         description.setText(bookDescription);
+
+        back.setOnClickListener(v -> {
+            finish();
+        });
     }
 }
