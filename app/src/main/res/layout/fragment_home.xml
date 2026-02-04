@@ -6,10 +6,25 @@
     android:gravity="center">
 
     <TextView
+        android:id="@+id/book_of_the_day_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Home Page"
-        android:textSize="24sp"
-        android:textStyle="bold"/>
+        android:textSize="20sp"
+        android:textStyle="italic"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:id="@+id/book_of_the_day_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp" />
+
+    <Button
+        android:id="@+id/shuffle_book_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Shuffle Book"
+        android:layout_marginTop="16dp" />
 
 </LinearLayout>
