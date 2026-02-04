@@ -33,7 +33,8 @@ public class SearchFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
         etSearchQuery = view.findViewById(R.id.etSearchQuery);
@@ -47,24 +48,11 @@ public class SearchFragment extends Fragment {
 
         btnSearch.setOnClickListener(v -> {
             String query = etSearchQuery.getText().toString().trim();
-            //Dodao sam knjigu za testiranje
-            BookDto testBook = new BookDto();
-            testBook.id = 1;
-            testBook.title = "Clean Code";
-            testBook.authors = "Robert C. Martin";
-            testBook.originalTitle = "Clean Code description";
-            testBook.imageUrl = "";
             if (query.isEmpty()) {
                 Toast.makeText(getContext(), "Please enter a search term.", Toast.LENGTH_SHORT).show();
                 return;
             }
-            //executeApiCall(query);
-            //Ovdje testiram kako se prikazuje knjiga
-            List<BookDto> testBooks = new ArrayList<>();
-            testBooks.add(testBook);
-            tvApiResult.setVisibility(View.GONE);
-            recyclerView.setVisibility(View.VISIBLE);
-            adapter.setBooks(testBooks);
+            executeApiCall(query);
         });
 
         return view;
@@ -92,7 +80,8 @@ public class SearchFragment extends Fragment {
                         tvApiResult.setVisibility(View.GONE);
                         recyclerView.setVisibility(View.VISIBLE);
                         adapter.setBooks(foundBooks);
-                        Toast.makeText(getContext(), "Found " + foundBooks.size() + " books", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Found " + foundBooks.size() + " books", Toast.LENGTH_SHORT)
+                                .show();
                     }
                 } else {
                     tvApiResult.setText("Error: " + response.code());

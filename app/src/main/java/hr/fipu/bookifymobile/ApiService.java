@@ -7,6 +7,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface ApiService {
-    @GET("/api/book")
+    @GET("/api/Book")
     Call<List<BookDto>> getBookByName(@Query("name") String name);
 }

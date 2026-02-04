@@ -15,8 +15,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
     private static Retrofit retrofit = null;
-    // Added trailing slash which is required by Retrofit
-    private static final String BASE_URL = "https://10.0.2.2:7042/"; 
+    // Base URL for the local API. Note: 10.0.2.2 is the special alias for the host
+    // machine in Android Emulator.
+    private static final String BASE_URL = "http://10.0.2.2:5000/";
 
     public static Retrofit getClient() {
         if (retrofit == null) {
@@ -29,23 +30,26 @@ public class ApiClient {
         return retrofit;
     }
 
-    // This method is DANGEROUS and should ONLY be used for development/testing with self-signed certificates
+    // This method is DANGEROUS and should ONLY be used for development/testing with
+    // self-signed certificates
     private static OkHttpClient getUnsafeOkHttpClient() {
         try {
             // Create a trust manager that does not validate certificate chains
             final TrustManager[] trustAllCerts = new TrustManager[] {
                     new X509TrustManager() {
                         @Override
-                        public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) throws CertificateException {
+                        public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType)
+                                throws CertificateException {
                         }
 
                         @Override
-                        public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) throws CertificateException {
+                        public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType)
+                                throws CertificateException {
                         }
 
                         @Override
                         public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-                            return new java.security.cert.X509Certificate[]{};
+                            return new java.security.cert.X509Certificate[] {};
                         }
                     }
             };
@@ -58,7 +62,7 @@ public class ApiClient {
             final SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
 
             OkHttpClient.Builder builder = new OkHttpClient.Builder();
-            builder.sslSocketFactory(sslSocketFactory, (X509TrustManager)trustAllCerts[0]);
+            builder.sslSocketFactory(sslSocketFactory, (X509TrustManager) trustAllCerts[0]);
             builder.hostnameVerifier(new HostnameVerifier() {
                 @Override
                 public boolean verify(String hostname, SSLSession session) {
