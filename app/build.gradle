@@ -4,6 +4,7 @@ plugins {
 
 android {
     namespace 'hr.fipu.bookifymobile'
+    buildFeatures.buildConfig = true
     compileSdk {
         version = release(36)
     }
@@ -16,12 +17,21 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        // Use a default for defaultConfig, which will be overridden by buildTypes
+        def baseUrlDev = project.findProperty('BOOKIFY_BASE_URL_DEV') ?: "http://10.0.2.2:5022/"
+        buildConfigField "String", "BASE_URL", '"' + baseUrlDev + '"'
     }
 
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            def baseUrlProd = project.findProperty('BOOKIFY_BASE_URL_PROD') ?: "https://api.bookify.com/"
+            buildConfigField "String", "BASE_URL", '"' + baseUrlProd + '"'
+        }
+        debug {
+            def baseUrlDev = project.findProperty('BOOKIFY_BASE_URL_DEV') ?: "http://10.0.2.2:5022/"
+            buildConfigField "String", "BASE_URL", '"' + baseUrlDev + '"'
         }
     }
     compileOptions {
